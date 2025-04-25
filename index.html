@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Routine du Soir - Ai-Me | Au Pays de Marie</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- TailwindCSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <!-- Google Fonts (Poppins) -->
+  <link href="https://cdn.jsdelivr.net/npm/@fontsource/poppins@3.3.1/index.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Poppins', Arial, sans-serif;
+      background: linear-gradient(135deg, #eaf1fb 0%, #f9fafb 100%);
+      letter-spacing: 0.01em;
+    }
+    .glass {
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(4px);
+    }
+    .tab-btn-active {
+      background: #2563eb !important;
+      color: #fff !important;
+      box-shadow: 0 2px 8px rgba(37,99,235,0.04);
+      transition: background 0.2s, color 0.2s;
+    }
+    .tab-btn-inactive {
+      background: transparent;
+      color: #2563eb;
+    }
+    .focus\:shadow-none:focus {
+      box-shadow: none;
+    }
+    @media (max-width: 500px) {
+      html { font-size: 16px;}
+      .px-6 {padding-left: 1rem; padding-right: 1rem;}
+      .py-8 {padding-top: 2rem; padding-bottom: 2rem;}
+    }
+    /* Hide scrollbars for PDF exports & in-app */
+    .scrollbar-hide::-webkit-scrollbar { display: none; }
+    .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+</head>
+<body class="min-h-screen text-gray-900">
+
+  <header class="py-6 px-4 bg-white border-b border-blue-50 shadow-none">
+    <div class="max-w-2xl mx-auto flex items-center justify-center space-x-3">
+      <span class="rounded-full bg-blue-100 p-3">
+        <i class="fas fa-moon text-blue-700 text-2xl"></i>
+      </span>
+      <div class="ml-1">
+        <h1 class="text-2xl md:text-3xl font-semibold tracking-normal text-blue-900">Routine du Soir</h1>
+        <span class="block text-sm md:text-base pt-1 font-medium text-blue-500">Ai-Me <span aria-hidden="true">|</span> Au Pays de Marie</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-2xl mx-auto px-4 py-8">
+    <section class="mb-6 text-center">
+      <h2 class="text-xl md:text-2xl font-medium mb-2 text-blue-800">Un chemin de douceur sur 5 soirs</h2>
+      <p class="text-base text-blue-700 max-w-xl mx-auto">Respirez. Goûtez. Remerciez. Priez. <span class="block mt-1">Chaque jour, découvrez une tisane et une prière chrétienne, pour alléger le corps et le cœur avant de dormir.</span></p>
+    </section>
+    <!-- Onglets jours -->
+    <nav class="flex justify-center mb-7">
+      <div id="jours-tabs" class="inline-flex rounded-full overflow-hidden bg-blue-50 border border-blue-100">
+        <button onclick="showDay(0)" id="tab0" class="tab-btn px-4 py-1.5 text-base font-semibold tab-btn-active focus:outline-none focus:shadow-none">1</button>
+        <button onclick="showDay(1)" id="tab1" class="tab-btn px-4 py-1.5 text-base font-semibold tab-btn-inactive focus:outline-none focus:shadow-none">2</button>
+        <button onclick="showDay(2)" id="tab2" class="tab-btn px-4 py-1.5 text-base font-semibold tab-btn-inactive focus:outline-none focus:shadow-none">3</button>
+        <button onclick="showDay(3)" id="tab3" class="tab-btn px-4 py-1.5 text-base font-semibold tab-btn-inactive focus:outline-none focus:shadow-none">4</button>
+        <button onclick="showDay(4)" id="tab4" class="tab-btn px-4 py-1.5 text-base font-semibold tab-btn-inactive focus:outline-none focus:shadow-none">5</button>
+      </div>
+    </nav>
+    <!-- Contenu dynamique des jours -->
+    <div id="days-container"></div>
+  </main>
+  <footer class="max-w-2xl mx-auto text-center py-3 mt-6 text-blue-300 text-sm">
+    &copy; 2024 Ai-Me | Au Pays de Marie
+  </footer>
+  <script>
+    const days = [
+      {
+        day: "Jour 1",
+        tisane: {
+          name: "Camomille vraie",
+          description: "Vertus apaisantes, la camomille aide à calmer l'esprit et prépare au sommeil."
+        },
+        prayer: {
+          title: "Prière de confiance",
+          text: `Seigneur, je remets entre tes mains cette journée. Que tes anges veillent sur mon sommeil et que ta paix demeure en moi. Que ta lumière chasse toute peur et toute inquiétude. Dans ta bonté, accorde-moi un repos réparateur. Amen.`
+        }
+      },
+      {
+        day: "Jour 2",
+        tisane: {
+          name: "Verveine citronnée",
+          description: "Propriétés relaxantes, favorise la détente musculaire pour une nuit sereine."
+        },
+        prayer: {
+          title: "Prière de protection",
+          text: `Seigneur Jésus, couvre-moi de ta protection ce soir. Que ton amour me rassure, que ta présence m’enveloppe et que rien de mauvais ne m’atteigne pendant mon sommeil. Je me confie à toi. Amen.`
+        }
+      },
+      {
+        day: "Jour 3",
+        tisane: {
+          name: "Mélisse",
+          description: "Apaise l'agitation intérieure et le stress, idéale pour des nuits plus sereines."
+        },
+        prayer: {
+          title: "Prière d’abandon",
+          text: `Père céleste, je t’abandonne tous mes soucis et mes pensées. Je m’en remets à ta volonté et à ta miséricorde. Que ta main bienveillante me guide même dans mes rêves. Merci pour ta fidélité. Amen.`
+        }
+      },
+      {
+        day: "Jour 4",
+        tisane: {
+          name: "Tilleul & Fleur d'oranger",
+          description: "Le duo parfait pour apaiser, libérer des tensions et favoriser l’endormissement."
+        },
+        prayer: {
+          title: "Prière pour la paix",
+          text: `Seigneur, dépose ta paix dans mon cœur ce soir. Éclaire mes pensées et accorde-moi un sommeil calme et profond. Je place ma confiance en toi pour la nuit et pour demain. Merci, Seigneur. Amen.`
+        }
+      },
+      {
+        day: "Jour 5",
+        tisane: {
+          name: "Lavande & Menthe",
+          description: "La lavande calme, la menthe soulage la digestion : combinaison idéale pour dormir tranquille."
+        },
+        prayer: {
+          title: "Prière de gratitude",
+          text: `Merci Seigneur pour cette journée, pour ta présence et ta bienveillance. Je rends grâce pour chaque instant vécu et pour tous tes bienfaits. Accorde-moi une nuit douce et sereine sous ton regard. Amen.`
+        }
+      }
+    ];
+
+    const breathingGuide = `
+      <div class="mb-7 mt-5">
+        <h3 class="text-base font-medium mb-2 text-blue-900 flex items-center space-x-2">
+          <span><i class="fas fa-wind text-blue-300"></i></span>
+          <span>Respiration apaisante</span>
+        </h3>
+        <div class="rounded-lg border bg-blue-50 border-blue-100 px-4 py-3 flex items-center justify-between mb-2">
+          <span class="text-blue-800 font-semibold">Inspirez</span>
+          <span class="text-blue-600 opacity-70">4s</span>
+          <span class="mx-1 hidden sm:inline-block text-blue-400">·</span>
+          <span class="text-blue-800 font-semibold">Retenez</span>
+          <span class="text-blue-600 opacity-70">4s</span>
+          <span class="mx-1 hidden sm:inline-block text-blue-400">·</span>
+          <span class="text-blue-800 font-semibold">Expirez</span>
+          <span class="text-blue-600 opacity-70">6s</span>
+        </div>
+        <button onclick="startBreathing()" class="mt-2 px-4 py-1.5 shadow-none rounded bg-blue-700 text-white hover:bg-blue-900 focus:outline-none text-sm font-medium transition-colors flex items-center space-x-2">
+          <span><i class="fas fa-play"></i></span><span>Démarrer le guide</span>
+        </button>
+        <div id="breathing-guide" class="mt-4 text-center hidden">
+          <div id="breath-animation" class="mx-auto mb-1 w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-xl text-blue-700 font-bold transition-all"></div>
+          <div class="mt-2 text-blue-800 font-medium" id="breath-label"></div>
+        </div>
+      </div>
+    `;
+
+    const gratitudeArea = `
+      <div class="my-7">
+        <h3 class="text-base font-medium mb-2 text-blue-900 flex items-center space-x-2">
+          <span><i class="fas fa-heart text-blue-300"></i></span>
+          <span>Mots de gratitude</span>
+        </h3>
+        <form id="gratitude-form" class="flex flex-col space-y-2" autocomplete="off" onsubmit="saveGratitude(event)">
+          <textarea required maxlength="240" placeholder="Notez trois choses pour lesquelles vous êtes reconnaissant(e)..." id="gratitude-text" class="rounded border border-blue-100 bg-blue-50 p-2 h-18 resize-none focus:outline-none focus:ring-1 focus:ring-blue-300 text-sm transition-all"></textarea>
+          <button type="submit" class="px-3 py-1.5 rounded bg-blue-700 text-white font-semibold hover:bg-blue-900 focus:outline-none w-32 self-end text-sm"><i class="fas fa-check mr-1"></i>Sauvegarder</button>
+        </form>
+        <div class="mt-2" id="gratitude-history"></div>
+      </div>
+    `;
+
+    function getDayContent(idx) {
+      const day = days[idx];
+      return `
+        <section class="glass rounded-lg shadow mb-6 p-0 md:p-0 border border-blue-100">
+          <div class="py-6 px-4 flex flex-col gap-2">
+            <div class="flex flex-col sm:flex-row sm:gap-8 mb-3">
+              <div class="flex-1 mb-4 sm:mb-0">
+                <div class="flex items-center text-blue-700 mb-1">
+                  <i class="fas fa-mug-hot mr-2"></i>
+                  <span class="text-sm font-semibold">Tisane</span>
+                </div>
+                <div class="bg-transparent px-2 py-1">
+                  <span class="block text-blue-900 font-semibold text-lg mb-0.5">${day.tisane.name}</span>
+                  <span class="block text-blue-500 text-sm">${day.tisane.description}</span>
+                </div>
+              </div>
+              <div class="flex-1">
+                <div class="flex items-center text-blue-700 mb-1">
+                  <i class="fas fa-praying-hands mr-2"></i>
+                  <span class="text-sm font-semibold">Prière chrétienne</span>
+                </div>
+                <div class="bg-transparent px-2 py-1">
+                  <span class="block text-blue-900 text-base font-semibold">${day.prayer.title}</span>
+                  <span class="block text-blue-600 text-sm mt-0.5 whitespace-pre-line">${day.prayer.text}</span>
+                </div>
+              </div>
+            </div>
+            ${breathingGuide}
+            ${gratitudeArea}
+          </div>
+        </section>
+      `;
+    }
+
+    // Tabs logic & initial display
+    function showDay(idx) {
+      for(let i=0; i<5; i++) {
+        document.getElementById('tab'+i).className = 'tab-btn px-4 py-1.5 text-base font-semibold focus:outline-none focus:shadow-none ' 
+          + (i === idx ? 'tab-btn-active' : 'tab-btn-inactive');
+      }
+      document.getElementById('days-container').innerHTML = getDayContent(idx);
+      loadGratitude();
+      stopBreathing();
+    }
+    window.addEventListener('DOMContentLoaded', ()=>{ showDay(0); });
+
+    // Respiration guidée animée
+    let breathingInterval = null, step = 0, steps = [
+      {label: "Inspirez (4s)", seconds: 4, class: "bg-blue-100"},
+      {label: "Retenez (4s)", seconds: 4, class: "bg-blue-200"},
+      {label: "Expirez (6s)", seconds: 6, class: "bg-blue-300 text-blue-900"},
+    ];
+
+    function startBreathing() {
+      const guide = document.getElementById("breathing-guide");
+      const label = document.getElementById("breath-label");
+      const ball = document.getElementById("breath-animation");
+      guide.classList.remove("hidden");
+      step = 0; let totalSteps = 0;
+      updateBreathingStep(label, ball);
+      breathingInterval = setInterval(() => {
+        step = (step + 1) % steps.length;
+        updateBreathingStep(label, ball);
+        totalSteps++;
+        if (totalSteps >= 8) stopBreathing();
+      }, steps[step].seconds * 1000);
+    }
+    function stopBreathing() {
+      const label = document.getElementById("breath-label");
+      const ball = document.getElementById("breath-animation");
+      if (breathingInterval) clearInterval(breathingInterval);
+      if(label) label.textContent = "";
+      if(ball) ball.style.transform = "scale(1)";
+      if(ball) ball.className = "mx-auto mb-1 w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-xl text-blue-700 font-bold transition-all";
+    }
+    function updateBreathingStep(label, ball) {
+      if (!label || !ball) return;
+      label.textContent = steps[step].label;
+      ball.className = `mx-auto mb-1 w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold transition-all ${steps[step].class}`;
+      if (step === 0)      ball.style.transform = "scale(1.2)";
+      else if (step === 1) ball.style.transform = "scale(1.05)";
+      else                 ball.style.transform = "scale(0.92)";
+    }
+
+    // Gratitude : sauvegarde locale par jour onglet
+    function gratitudeKey() {
+      for (let i = 0; i < 5; i++) {
+        const tab = document.getElementById("tab" + i);
+        if (tab && tab.classList.contains("tab-btn-active")) {
+          return "gratitude_aime_jour" + (i+1);
+        }
+      }
+      return "gratitude_aime_jour1";
+    }
+    function saveGratitude(e) {
+      e.preventDefault();
+      const text = document.getElementById('gratitude-text').value.trim();
+      if (!text) return false;
+      const key = gratitudeKey();
+      let history = JSON.parse(localStorage.getItem(key) || "[]");
+      const date = (new Date()).toLocaleDateString('fr-FR');
+      history.unshift({ text, date });
+      history = history.slice(0, 8);
+      localStorage.setItem(key, JSON.stringify(history));
+      document.getElementById('gratitude-text').value = '';
+      loadGratitude();
+    }
+    function loadGratitude() {
+      const key = gratitudeKey();
+      const history = JSON.parse(localStorage.getItem(key) || "[]");
+      const historyDiv = document.getElementById('gratitude-history');
+      if (historyDiv) {
+        if (history.length === 0) {
+          historyDiv.innerHTML = `<p class="text-sm text-blue-400 pt-1">Aucune gratitude enregistrée.</p>`;
+        } else {
+          historyDiv.innerHTML = `
+            <ul class="mt-2 space-y-1">
+              ${history.map(h => `<li class="text-xs text-blue-700 bg-blue-50 px-2 py-1 rounded flex justify-between items-center whitespace-pre-line"><span>${h.text}</span><span class="ml-2 text-blue-300">${h.date}</span></li>`).join('')}
+            </ul>
+          `;
+        }
+      }
+    }
+  </script>
+</body>
+</html>
